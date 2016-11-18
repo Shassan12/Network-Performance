@@ -5,7 +5,7 @@ results = []
 def pingServer(url):
     try:
         response = subprocess.check_output("ping "+url)
-        print(response)
+        print("Pinging "+url+" with iPv4")
         gatherData(response, url)
     except subprocess.CalledProcessError:
         print()
@@ -31,19 +31,15 @@ def saveResults():
            resultsFile.writelines(record['URL']+","+str(record['sent'])+","+str(record['received'])+","+str(record['lost'])+","+str(record['percentagelost'])
                                    +","+record['minimum']+","+record['maximum']+","+record['average']+'\n')
 
-sitesFile = open("top100Sites.csv", "r")
+def main():
+    sitesFile = open("top100Sites.csv", "r")
+    with sitesFile as file:
+        for line in file:
+            url = re.sub(r"\d+,", "", line).rstrip('\r\n')
+            pingServer(url)
 
+    saveResults()
 
-with sitesFile as file:
-    for line in file:
-        url = re.sub(r"\d+,", "", line).rstrip('\r\n')
-       #print("ping " + url)
-        pingServer(url)
-
-saveResults()
-
-#sitesFile.close()
-
-
-#sitesFile.close()
+if __name__ == "__main__":
+    main()
 
