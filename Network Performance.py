@@ -1,26 +1,29 @@
 import subprocess, os, re
 
 results = []
+pingAttempts = 10
 
 def pingServer(url):
+    print("Pinging " + url + " with iPv4")
+
     try:
-        response = subprocess.check_output("ping "+url)
-        print("Pinging "+url+" with iPv4")
+        response = subprocess.check_output("ping -4 -n "+str(pingAttempts)+" "+url)
+        print("Test succesful")
         gatherData(response, url)
     except subprocess.CalledProcessError:
-        print()
+        print("Connection timed out or site is not a valid IP")
 
 def gatherData(response, url):
     splitLines = response.splitlines()
-    packetLoss = splitLines[8].split()
+    packetLoss = splitLines[pingAttempts+4].split()             #8
     lost = re.sub("\D", "", packetLoss[9].decode('utf-8'))
     percentageLost = re.sub("\D", "", packetLoss[10].decode('utf-8'))
 
-    tripTime = splitLines[10].split()
+    tripTime = splitLines[pingAttempts+6].split()   #10
     minimum = re.sub("\D", "", tripTime[2].decode('utf-8'))
     maximum = re.sub("\D", "", tripTime[5].decode('utf-8'))
     average = re.sub("\D", "", tripTime[8].decode('utf-8'))
-    results.append({'URL': url, 'sent': 4, 'received': 4, 'lost': lost, 'percentagelost': percentageLost
+    results.append({'URL': url, 'sent': str(pingAttempts), 'received': str(pingAttempts), 'lost': lost, 'percentagelost': percentageLost
                     ,'minimum': minimum, 'maximum': maximum, 'average': average})
 
 def saveResults():
