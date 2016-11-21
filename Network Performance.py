@@ -76,11 +76,11 @@ def reportFailedTest(url, option):
     if(option == 4):
         results4.append({'URL': url, 'sent': str(pingAttempts), 'received': 0, 'lost': str(pingAttempts),
                          'percentagelost': 100
-                            , 'minimum': "#n/a", 'maximum': "#n/a", 'average': "#n/a", 'Test Status': "Failed"})
+                            , 'minimum': "#N/A", 'maximum': "#N/A", 'average': "#N/A", 'Test Status': "Failed"})
     else:
         results6.append({'URL': url, 'sent': str(pingAttempts), 'received': 0, 'lost': str(pingAttempts),
                          'percentagelost': 100
-                            , 'minimum': "#n/a", 'maximum': "#n/a", 'average': "#n/a", 'Test Status': "Failed"})
+                            , 'minimum': "#N/A", 'maximum': "##N/A", 'average': "##N/A", 'Test Status': "Failed"})
 
 #main method
 def main():
