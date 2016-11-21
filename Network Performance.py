@@ -1,4 +1,4 @@
-import subprocess, os, re
+import subprocess, re
 
 results4 = []
 results6 = []
