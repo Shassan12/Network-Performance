@@ -76,11 +76,11 @@ def reportFailedTest(url, option):
     if(option == 4):
         results4.append({'URL': url, 'sent': str(pingAttempts), 'received': 0, 'lost': str(pingAttempts),
                          'percentagelost': 100
-                            , 'minimum': "-", 'maximum': "-", 'average': "-", 'Test Status': "Failed"})
+                            , 'minimum': "#n/a", 'maximum': "#n/a", 'average': "#n/a", 'Test Status': "Failed"})
     else:
         results6.append({'URL': url, 'sent': str(pingAttempts), 'received': 0, 'lost': str(pingAttempts),
                          'percentagelost': 100
-                            , 'minimum': "-", 'maximum': "-", 'average': "-", 'Test Status': "Failed"})
+                            , 'minimum': "#n/a", 'maximum': "#n/a", 'average': "#n/a", 'Test Status': "Failed"})
 
 #main method
 def main():
@@ -90,6 +90,7 @@ def main():
             url = re.sub(r"\d+,", "", line).rstrip('\r\n')
             pingServer(url)
 
+    print("Done")
     saveResults()
 
 if __name__ == "__main__":
